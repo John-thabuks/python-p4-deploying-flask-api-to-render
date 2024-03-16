@@ -26,8 +26,9 @@ class Birds(Resource):
     def post(self):
         new_bird = Bird(name ="cute bird", species="chicken")
         db.session.add(new_bird)
-        db.commit()
+        db.session.commit()
         
         return new_bird
 
 api.add_resource(Birds, '/birds')
+
