@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, request
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 
@@ -22,5 +22,12 @@ class Birds(Resource):
     def get(self):
         birds = [bird.to_dict() for bird in Bird.query.all()]
         return make_response(jsonify(birds), 200)
+    
+    def post(self):
+        new_bird = Bird(name ="cute bird", species="chicken")
+        db.session.add(new_bird)
+        db.commit()
+        
+        return new_bird
 
 api.add_resource(Birds, '/birds')
